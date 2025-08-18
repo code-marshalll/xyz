@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Automation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%; padding: 10px; margin: 10px 0;
+            border: 1px solid #ccc; border-radius: 8px;
+        }
+        button {
+            background: #4CAF50; color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer;
+        }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>📧 Job Application Email Automation</h2>
+        <form action="/send-single" method="post">
+            <label>HR Email:</label>
+            <input type="email" name="hr_email" required>
+            
+            <label>Subject:</label>
+            <input type="text" name="subject" required>
+            
+            <label>Select Role:</label>
+            <select name="role" required>
+                <option value="1">Spring Boot Resume</option>
+                <option value="2">FastAPI / React / Django Resume</option>
+            </select>
+            
+            <button type="submit">Send Email</button>
+        </form>
+    </div>
+    {% if message %}
+<div id="message" class="{{ 'success' if success else 'error' }}">
+    {{ message }}
+</div>
+{% endif %}
+
+</body>
+</html>
