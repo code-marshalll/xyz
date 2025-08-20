@@ -7,8 +7,8 @@ import os
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-EMAIL = "satyampathak67@gmail.com"  # your Gmail
-PASSWORD = "fzkh nitb lzvh ddcs"     # Your App Password
+EMAIL = ""  # your Gmail
+PASSWORD = ""     # Your App Password
 
 TEMPLATES = {
     1: {
@@ -101,3 +101,4 @@ def send_email(to_email: str, subject: str, role: int):
         return True, "✅ Email sent successfully!"
     except Exception as e:
         return False, f"❌ Failed: {e}"
+
