@@ -7,8 +7,6 @@ import os
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-EMAIL = ""  # your Gmail
-PASSWORD = ""     # Your App Password
 
 TEMPLATES = {
     1: {
