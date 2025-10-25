@@ -1,56 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Email Automation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f9;
-            padding: 20px;
-        }
-        .form-container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-        }
-        input, select, textarea {
-            width: 100%; padding: 10px; margin: 10px 0;
-            border: 1px solid #ccc; border-radius: 8px;
-        }
-        button {
-            background: #4CAF50; color: white; border: none;
-            padding: 10px 20px; border-radius: 8px; cursor: pointer;
-        }
-        button:hover { background: #45a049; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Email Automation Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="form-container">
-        <h2>📧 Job Application Email Automation</h2>
-        <form action="/send-single" method="post">
-            <label>HR Email:</label>
-            <input type="email" name="hr_email" required>
-            
-            <label>Subject:</label>
-            <input type="text" name="subject" required>
-            
-            <label>Select Role:</label>
-            <select name="role" required>
-                <option value="1">Spring Boot Resume</option>
-                <option value="2">FastAPI / React / Django Resume</option>
-            </select>
-            
-            <button type="submit">Send Email</button>
-        </form>
-    </div>
-    {% if message %}
-<div id="message" class="{{ 'success' if success else 'error' }}">
-    {{ message }}
-</div>
-{% endif %}
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
+  <!-- 🌐 Top Navigation -->
+  <nav class="bg-gray-900 text-white flex justify-center gap-10 py-4 shadow-md sticky top-0 z-50">
+    <button onclick="showSection('single')" class="hover:text-emerald-400 transition">📧 Single Email</button>
+    <button onclick="showSection('multiple')" class="hover:text-emerald-400 transition">📨 Multiple Emails</button>
+    <button onclick="showSection('auto')" class="hover:text-emerald-400 transition">🤖 Auto Random</button>
+  </nav>
+
+  <!-- 📦 Content Layout -->
+  <div class="flex flex-1 overflow-hidden">
+
+    <!-- 📊 Sidebar (40% width) -->
+    <aside class="w-2/5 bg-white border-r border-gray-200 p-6 overflow-y-auto shadow-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          <span>📊</span> Email Progress
+        </h3>
+        <button onclick="clearStatus()" class="text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition">🧹 Clear</button>
+      </div>
+      <pre id="status" class="bg-gray-100 text-gray-800 p-3 rounded-md text-sm overflow-x-auto h-[80vh]">
+Waiting for updates...
+      </pre>
+    </aside>
+
+    <!-- 🧩 Main Content (60% width) -->
+    <main class="flex-1 p-8 overflow-y-auto">
+
+      <!-- SINGLE EMAIL FORM -->
+      <section id="single" class="section max-w-xl mx-auto bg-white shadow-lg rounded-xl p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">📧 Send Single Email</h2>
+        <form action="/send-single" method="post" class="space-y-4">
+          <div>
+            <label class="block font-medium text-gray-700">HR Email</label>
+            <input type="email" name="hr_email" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+          </div>
+
+          <div>
+            <label class="block font-medium text-gray-700">Subject</label>
+            <input type="text" name="subject" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+          </div>
+
+          <div>
+            <label class="block font-medium text-gray-700">Select Role</label>
+            <select name="role" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+              <option value="1">Spring Boot Resume</option>
+              <option value="2">FastAPI / React / Django Resume</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold transition">Send Email</button>
+        </form>
+      </section>
+
+      <!-- MULTIPLE EMAIL FORM -->
+      <section id="multiple" class="section hidden max-w-xl mx-auto bg-white shadow-lg rounded-xl p-6 mt-8">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">📨 Send Multiple Emails</h2>
+        <form method="post" action="/send-multiple" class="space-y-4">
+          <div>
+            <label class="block font-medium text-gray-700">HR Emails (comma separated)</label>
+            <input type="text" id="hr_emails" name="hr_emails" placeholder="hr1@example.com, hr2@example.com" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+          </div>
+
+          <div>
+            <label class="block font-medium text-gray-700">Subject</label>
+            <input type="text" id="subject" name="subject" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+          </div>
+
+          <div>
+            <label class="block font-medium text-gray-700">Select Role</label>
+            <select name="role" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none">
+              <option value="1">Spring Boot Resume</option>
+              <option value="2">FastAPI / React / Django Resume</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold transition">Send</button>
+        </form>
+      </section>
+
+      <!-- AUTO RANDOM EMAIL SENDER -->
+      <section id="auto" class="section hidden max-w-xl mx-auto bg-white shadow-lg rounded-xl p-6 mt-8">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">🤖 Automated Cold Email Sender</h2>
+        <form method="post" action="/auto-random-start" class="space-y-4">
+          <div>
+            <label class="block font-medium text-gray-700">Paste HR Emails (comma separated)</label>
+            <textarea name="emails" rows="6" placeholder="hr1@example.com, hr2@example.com" required class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-400 outline-none"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-lg font-semibold transition">Start Sending</button>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // 🔁 Navigation Switching
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(s => s.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
+    }
+
+    // 📡 WebSocket for live progress
+    const statusBox = document.getElementById("status");
+    const socket = new WebSocket("ws://" + window.location.host + "/auto-random-updates");
+
+    socket.onopen = () => {
+      statusBox.textContent = "✅ Connected to server. Waiting for updates...\n";
+    };
+
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        statusBox.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        statusBox.textContent += "\n" + event.data;
+      }
+    };
+
+    socket.onerror = (error) => {
+      statusBox.textContent += "\n❌ WebSocket error: " + error.message;
+    };
+
+    socket.onclose = () => {
+      statusBox.textContent += "\n🔌 Disconnected from server.";
+    };
+
+    function clearStatus() {
+      statusBox.textContent = "";
+    }
+  </script>
 </body>
 </html>

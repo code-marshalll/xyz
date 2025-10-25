@@ -7,13 +7,17 @@ import os
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-
 TEMPLATES = {
     1: {
         "body": """
         Dear HR,<br><br>
         I am excited to apply for the <b>Developer</b> role. 
-        I have recently built a <b>user authentication microservice</b> with signup, login, and token-based authentication, 
+        I have worked extensively with:<br>
+        - Frontend: ReactJS, React Native, Tailwind CSS<br>
+        - Backend: Python (Django), Java (spring Boot)
+        - Tools & Database: MySQL, REST APIs, Docker, Jenkins,Linux , Docker Compose<br><br>
+        
+        I have recently built a <b>user authentication microservice using spring boot (java)</b> with signup, login, and token-based authentication, 
         and I am currently working on a mini S3-like storage microservice.<br><br>
         
         I have also worked on full-stack projects including:<br>
@@ -29,9 +33,9 @@ TEMPLATES = {
         
         Warm regards,<br>
         Satyam Pathak<br>
-        📧 satyampathak67@gmail.com<br>
-        📱 +91-6388495727<br>
-        🌐 <a href="https://github.com/satyampathakk">GitHub</a> | <a href="https://satyampathakk.github.io/portfolio/">Portfolio</a> | <a href="https://www.linkedin.com/in/satyampathakk/">LinkedIn</a>
+        satyampathak67@gmail.com<br>
+        +91-6388495727<br>
+         <a href="https://github.com/satyampathakk">GitHub</a> | <a href="https://satyampathakk.github.io/portfolio/">Portfolio</a> | <a href="https://www.linkedin.com/in/satyampathakk/">LinkedIn</a>
         """,
         "resume": "resumes/satyam-pathak.pdf"
     },
@@ -57,9 +61,9 @@ TEMPLATES = {
         
         Warm regards,<br>
         Satyam Pathak<br>
-        📧 satyampathak67@gmail.com<br>
-        📱 +91-6388495727<br>
-        🌐 <a href="https://github.com/satyampathakk">GitHub</a> | <a href="https://satyampathakk.github.io/portfolio/">Portfolio</a> | <a href="https://www.linkedin.com/in/satyampathakk/">LinkedIn</a>
+        satyampathak67@gmail.com<br>
+        +91-6388495727<br>
+         <a href="https://github.com/satyampathakk">GitHub</a> | <a href="https://satyampathakk.github.io/portfolio/">Portfolio</a> | <a href="https://www.linkedin.com/in/satyampathakk/">LinkedIn</a>
         """,
         "resume": "resumes/satyam-resume.pdf"
     }
