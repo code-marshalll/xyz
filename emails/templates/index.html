@@ -107,9 +107,10 @@ Waiting for updates...
       document.getElementById(id).classList.remove("hidden");
     }
 
-    // 📡 WebSocket for live progress
+    // 📡 WebSocket for live progress with WSS support
     const statusBox = document.getElementById("status");
-    const socket = new WebSocket("ws://" + window.location.host + "/auto-random-updates");
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${protocol}://${window.location.host}/auto-random-updates`);
 
     socket.onopen = () => {
       statusBox.textContent = "✅ Connected to server. Waiting for updates...\n";
